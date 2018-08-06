@@ -133,7 +133,6 @@ class Nationality extends React.Component {
 
   componentWillReceiveProps(nextProps){
   //  this.setState({data: nextProps.dataSource}); 
-
   }
 
   handleModalVisible = flag => {
