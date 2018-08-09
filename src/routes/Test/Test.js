@@ -1,73 +1,85 @@
-import { Form, Icon, Input, Button } from 'antd';
+import React from 'react';
+import { ChartCard, Field, MiniArea, MiniBar, MiniProgress } from 'components/Charts';
+import Trend from 'components/Trend';
+import NumberInfo from 'components/NumberInfo';
+import { Row, Col, Icon, Tooltip } from 'antd';
+import numeral from 'numeral';
+import moment from 'moment';
 
-const FormItem = Form.Item;
-
-function hasErrors(fieldsError) {
-  return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
-
-class HorizontalLoginForm extends React.Component {
-  componentDidMount() {
-    // To disabled submit button at the beginning.
-    this.props.form.validateFields();
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('err: ', err);
-        console.log('Received values of form: ', values);
-      } else{
-        console.log('err: ', err);
-        console.log('values: ', values);
-      }
-      
-    });
-  }
-
-  render() {
-    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
-
-    // Only show error after a field is touched.
-    const userNameError = isFieldTouched('userName') && getFieldError('userName');
-    const passwordError = isFieldTouched('password') && getFieldError('password');
+class Test extends React.Component {
+  
+  render(){
+    const visitData = [];
+    const beginDay = new Date().getTime();
+    for (let i = 0; i < 20; i += 1) {
+      visitData.push({
+        x: moment(new Date(beginDay + (1000 * 60 * 60 * 24 * i))).format('YYYY-MM-DD'),
+        y: Math.floor(Math.random() * 100) + 10,
+      });
+    }
     return (
-      <Form layout="inline" onSubmit={this.handleSubmit}>
-        <FormItem
-          //validateStatus={userNameError ? 'error' : ''}
-          //help={userNameError || ''}
+      <Row>
+        <Col span={24}>
+        <ChartCard
+          title="搜索用户数量"
+          total={numeral(8846).format('0,0')}
+          contentHeight={134}
         >
-          {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }],
-          })(
-            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-          )}
-        </FormItem>
-        <FormItem
-          validateStatus={passwordError ? 'error' : ''}
-          help={passwordError || ''}
+          <NumberInfo
+            subTitle={<span>本周访问</span>}
+            total={numeral(12321).format('0,0')}
+            status="up"
+            subTotal={17.1}
+          />
+          <MiniArea
+            line
+            height={45}
+            data={visitData}
+          />
+        </ChartCard>
+      </Col>
+      <Col span={24} style={{ marginTop: 24 }}>
+        <ChartCard
+          title="访问量"
+          action={<Tooltip title="指标说明"><Icon type="info-circle-o" /></Tooltip>}
+          total={numeral(8846).format('0,0')}
+          footer={<Field label="日访问量" value={numeral(1234).format('0,0')} />}
+          contentHeight={46}
         >
-          {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
-          })(
-            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-          )}
-        </FormItem>
-        <FormItem>
-          <Button
-            type="primary"
-            htmlType="submit"
-           // disabled={hasErrors(getFieldsError())}
-          >
-            Log in
-          </Button>
-        </FormItem>
-      </Form>
+          <MiniBar
+            height={46}
+            data={visitData}
+          />
+        </ChartCard>
+      </Col>
+      <Col span={24} style={{ marginTop: 24 }}>
+        <ChartCard
+          title="线上购物转化率"
+          action={<Tooltip title="指标说明"><Icon type="info-circle-o" /></Tooltip>}
+          total="78%"
+          footer={
+            <div>
+              <span>
+                周同比
+                <Trend flag="up" style={{ marginLeft: 8, color: 'rgba(0,0,0,.85)' }}>12%</Trend>
+              </span>
+              <span style={{ marginLeft: 16 }}>
+                日环比
+                <Trend flag="down" style={{ marginLeft: 8, color: 'rgba(0,0,0,.85)' }}>11%</Trend>
+              </span>
+            </div>
+          }
+          contentHeight={46}
+        >
+          <MiniProgress percent={78} strokeWidth={8} target={80} />
+        </ChartCard>
+      </Col>
+      </Row>
     );
+    
   }
+    
+
 }
 
-const WrappedHorizontalLoginForm = Form.create()(HorizontalLoginForm);
-
-export default WrappedHorizontalLoginForm;
+export default Test;

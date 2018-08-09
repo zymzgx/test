@@ -146,6 +146,17 @@ const menuData = [
     ],
   },
   {
+    name: '监控管理',
+    icon: 'dashboard',
+    path: 'watch',
+    children: [
+      {
+        name: '电度分析',
+        path: 'counter-analysis',
+      },
+    ],
+  },
+  {
     name: '页面测试',
     icon: 'user',
     path: 'test',
