@@ -166,6 +166,7 @@ export default class TableList extends PureComponent {
         ...fieldsValue,
         updatedAt: fieldsValue.updatedAt && fieldsValue.updatedAt.valueOf(),
       };
+      console.log(values);
 
       this.setState({
         formValues: values,

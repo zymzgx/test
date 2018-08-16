@@ -142,6 +142,10 @@ const menuData = [
       {
         name: '国籍管理',
         path: 'nationality',        
+      },
+      {
+        name: '货物管理',
+        path: 'cargo',        
       }
     ],
   },

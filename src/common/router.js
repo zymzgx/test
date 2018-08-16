@@ -173,6 +173,9 @@ export const getRouterData = app => {
     '/basic/nationality':{
       component: dynamicWrapper(app, ['nationality'], () => import('../routes/Basic/Nationality')),
     },
+    '/basic/cargo':{
+      component: dynamicWrapper(app, ['cargo'], () => import('../routes/Basic/Cargo')),
+    },
     '/watch/counter-analysis':{
       component: dynamicWrapper(app, ['equipment'], () => import('../routes/Watch/CounterAnalysis')),
     },
