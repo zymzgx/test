@@ -65,6 +65,7 @@ export default class SearchList extends Component {
       >
         <Switch>
           {routes.map(item => (
+            console.log('item',item),
             <Route key={item.key} path={item.path} component={item.component} exact={item.exact} />
           ))}
         </Switch>

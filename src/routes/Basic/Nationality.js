@@ -1,6 +1,7 @@
-import { Table, Input, InputNumber, Popconfirm, Form, Divider, Button, Modal, message } from 'antd';
+import { Table, Input, InputNumber, Popconfirm, Form, Divider, Button, Modal, message, Card, Icon } from 'antd';
 import React from 'react'
 import { connect } from 'dva'
+import PageheaderLayout from '../../layouts/PageHeaderLayout'
 import EditableCell from '../../components/EditableCell'
 import EditableContext from  '../../components/EditableCell/EditableContext'
 
@@ -87,32 +88,27 @@ class Nationality extends React.Component {
                 <span>
                   <EditableContext.Consumer>
                     {form => (
-                      <a
-                        href="javascript:;"
-                        onClick={() => this.handleUpdate(form, record.id)}
-                        style={{ marginRight: 8 }}
-                      >
-                        保存
+                      <a onClick={() => this.handleUpdate(form, record.id)} >
+                         <Icon type="check" style={{color:'green'}} />
                       </a>
                     )}
                   </EditableContext.Consumer>
+                  <Divider type="vertical" />
                   <Popconfirm
-                    title="确认取消?"
-                    onConfirm={() => this.cancel(record.id)}
-                  >
-                    <a>取消</a>
+                    title="确定要取消吗？"
+                    onConfirm={() => this.cancel(record.id)} >
+                    <a><Icon type="close" style={{color:'red'}} /></a>
                   </Popconfirm>
                 </span>
               ) : (
                 <span>
-                <a onClick={() => this.edit(record.id)}>修改</a>
-                <Divider type="vertical" />
-                <Popconfirm
-                  title="确认删除?"
-                  onConfirm={() => this.handleDelete(record.id)}
-                >
-                <a>删除</a>
-                </Popconfirm>   
+                  <a onClick={() => this.edit(record.id)}><Icon type="edit" /></a>
+                  <Divider type="vertical" />
+                  <Popconfirm
+                    title="确定要删除吗？"
+                    onConfirm={() => this.handleDelete(record.id)} >
+                    <a><Icon type="delete" /></a>
+                  </Popconfirm>   
                 </span>
               )}
             </div>
@@ -232,7 +228,8 @@ class Nationality extends React.Component {
     });
   
     return (
-      <div>
+      <PageheaderLayout>
+        <Card>
         <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
           新建
         </Button>
@@ -243,9 +240,11 @@ class Nationality extends React.Component {
           columns={columns}
           rowClassName="editable-row"
           rowKey="id"
+          size="small" 
         />
         <CreateForm {...parentMethods} modalVisible={modalVisible} />
-      </div>
+        </Card>
+      </PageheaderLayout>
       );
     }
   }

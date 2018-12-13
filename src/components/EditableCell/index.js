@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, InputNumber, Form} from 'antd';
+import { Input, InputNumber, Form, Select } from 'antd';
 import EditableContext from  './EditableContext'
 
 const FormItem = Form.Item;

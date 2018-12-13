@@ -176,11 +176,45 @@ export const getRouterData = app => {
     '/basic/cargo':{
       component: dynamicWrapper(app, ['cargo'], () => import('../routes/Basic/Cargo')),
     },
+    '/basic/equipment':{
+      component: dynamicWrapper(app, ['equipment', 'points'], () => import('../routes/Basic/EquipmentManage')),
+    },
+     '/basic/ship':{
+      component: dynamicWrapper(app, ['ship'], () => import('../routes/Basic/Ship')),
+    },
+    '/work/unloadplan':{
+      component: dynamicWrapper(app, ['unloadplan'], () => import('../routes/Work/UnloadPlan')),
+    },
+    '/work/unloadmanage':{
+      //name: '卸船工班作业动态',
+      name: '卸船计划管理',
+      component: dynamicWrapper(app, ['unload', 'unloadequipment'], () => import('../routes/Work/UnloadManage')),
+    },
+    '/work/loadplan':{
+      component: dynamicWrapper(app, ['loadplan'], () => import('../routes/Work/LoadPlan')),
+    },
+    '/work/loadmanage':{
+      //name: '装船工班作业动态',
+      name: '装船计划管理',
+      component: dynamicWrapper(app, ['load', 'loadequipment'], () => import('../routes/Work/LoadManage')),
+    },
+    '/work/loadcar':{
+      component: dynamicWrapper(app, ['loadcar', 'loadcarequipment'], () => import('../routes/Work/LoadCarManage')),
+    },
     '/watch/counter-analysis':{
       component: dynamicWrapper(app, ['equipment'], () => import('../routes/Watch/CounterAnalysis')),
     },
-    '/test':{
+    '/watch/counter-chart':{
+      component: dynamicWrapper(app, ['equipment'], () => import('../routes/Watch/CounterChart')),
+    },
+    '/watch/ai-chart':{
+      component: dynamicWrapper(app, ['equipment'], () => import('../routes/Watch/AiChart')),
+    },
+    '/test/test':{
       component: dynamicWrapper(app, [], () => import('../routes/Test/Test')),
+    },
+    '/test/secure':{
+      component: dynamicWrapper(app, [], () => import('../routes/Secure')),
     },
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),

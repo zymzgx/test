@@ -10,13 +10,10 @@ const FormItem = Form.Item;
 const typeStatus = ['装船机', '卸船机', '皮带机', '斗轮机', '装车楼'];//1-5
 
 @Form.create()
-class Equipment extends React.Component {
+class CounterChart extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { 
-      currentTabKey: '',
-    };
     this.columns = [
         {
             title:'代码',
@@ -91,14 +88,14 @@ class Equipment extends React.Component {
     const { dispatch } = this.props;
    
     dispatch({
-        type:'equipment/listEquipment',
+        type:'equipment/getCounterEquipment',
         payload:{},
     })
     console.log(this.props);
   }
 
   componentWillReceiveProps(nextProps){
-  //  this.setState({data: nextProps.dataSource}); 
+ 
   }
   
   handleSelect(key) {
@@ -111,28 +108,14 @@ class Equipment extends React.Component {
           payload: {id: key, date1: values.date.format('YYYY-MM-DD')},
         });
   
-        message.success('查询成功');
-        
-        this.setState({
-          chartShow: this.props.equipment.counterCartShow,
-          currentTabKey: '',
-        });
-      }
+        //message.success('查询成功');
+       }
     }); 
   }
 
-  handleTabChange = key => {
-    this.setState({
-      currentTabKey: key,
-    });
-  };
-
   render() {
     const { form } = this.props;
-    const { currentTabKey } = this.state;
-
-    const activeKey = currentTabKey || (this.props.equipment.counterChartMaster[0] && this.props.equipment.counterChartMaster[0].counterID);
-
+ 
     return (
       <PageheaderLayout>
         <Card
@@ -140,19 +123,21 @@ class Equipment extends React.Component {
           bodyStyle={{ padding: '0 0 32px 0' }}
           //style={{ marginTop: 32 }}
         >
-            <Tabs activeKey={activeKey} onChange={this.handleTabChange}>
+
+         <ul>
             {this.props.equipment.counterChartMaster.map(item => (
-              <Tabs.TabPane tab={item.yname1} key={item.counterID}>
-                <div style={{ padding: '0 24px' }}>
+                 <li key={item.counterID}>
+                   <span>{item.yname1}</span>
+                <div style={{ padding: '0 24px' }}>                
                   <TimelineChart
-                    height={400}
+                    height={200}
                     data={this.props.equipment.counterChartShow.filter((i) => i.counterID === item.counterID)}
-                    titleMap={{ y1: '电度量' }}
+                    titleMap={{ y1:"电表读数"}}
                   />
                 </div>
-              </Tabs.TabPane>
+                </li>    
             ))}
-          </Tabs>
+        </ ul>
         
         <Form>
         <Row style={{ height: 32 }}>                  
@@ -171,14 +156,14 @@ class Equipment extends React.Component {
         <Table
           //components={components}
           bordered
-          dataSource={this.props.equipment.items}
+          dataSource={this.props.equipment.counterEquipment}
           columns={this.columns}
           rowClassName="editable-row"
           rowKey="id"
           pagination={{pageSize: 5}}
           size="small"
-        />   
-        </Card>   
+        />      
+        </Card>
       </PageheaderLayout>
       );
     }
@@ -186,7 +171,6 @@ class Equipment extends React.Component {
   
   export default connect(({equipment, loading})=>({
     equipment, 
-    //chartShow:equipment.chartShow,
-    loading:loading.effects['equipment/listEquipment'],
-  }))(Equipment);
+    //loading:loading.effects['equipment/fetchBasic'],
+  }))(CounterChart);
   

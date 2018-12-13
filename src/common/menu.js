@@ -136,9 +136,13 @@ const menuData = [
   },
   {
     name: '基础管理',
-    icon: 'user',
+    icon: 'table',
     path: 'basic',
     children:[
+      {
+        name: '设备管理',
+        path: 'equipment',        
+      },
       {
         name: '国籍管理',
         path: 'nationality',        
@@ -146,7 +150,30 @@ const menuData = [
       {
         name: '货物管理',
         path: 'cargo',        
-      }
+      },
+      {
+        name: '船舶管理',
+        path: 'ship',        
+      },
+    ],
+  },
+  {
+    name: '作业管理',
+    icon: 'schedule',
+    path: 'work',
+    children:[
+      {
+        name: '卸船计划管理',
+        path: 'unloadplan',        
+      },
+      {
+        name: '装船计划管理',
+        path: 'loadplan',        
+      },
+      {
+        name: '装车工班管理',
+        path: 'loadcar',        
+      },
     ],
   },
   {
@@ -157,15 +184,31 @@ const menuData = [
       {
         name: '电度分析',
         path: 'counter-analysis',
+        hideInMenu: true,
+      },
+      {
+        name: '电度图表',
+        path: 'counter-chart',
+      },
+      {
+        name: '电流图表',
+        path: 'ai-chart',
       },
     ],
   },
   {
-    name: '页面测试',
+    name: '测试',
     icon: 'user',
     path: 'test',
     children:[
-
+      {
+        name: '页面测试',
+        path: 'test',
+      },
+      {
+        name: '用户测试',
+        path: 'secure',
+      },
     ],
   },
   {
